@@ -1,0 +1,38 @@
+{% extends 'laxbets/base.html' %}
+
+{% block content %}
+    <div class="jumbotron below-header">
+    {% if date %}
+    <h1 class="display-4">Games for weekend of: {{ date }}</h1>
+    {% endif %}
+    <br>
+
+    {% if display %}
+        {% if games %}
+        <form method="post" action="{% url 'laxbets_app:submitPicks' week_id %}">
+            {% csrf_token %}
+            <div class="form-group col-md-6">
+                <label for="email">Email address</label>
+                <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
+            <br>
+            {% for game in games %}
+                <h3>{{ game.favorite }} -{{ game.line }} v. {{ game.dog }}</h3>
+                <input type="radio" name="{{ game.id }}" id="{{ game.favorite }}" value="{{ game.favorite.id }}" required/>
+                <label for="{{ game.favorite }}">{{ game.favorite }}</label><br />
+                <input type="radio" name="{{ game.id}}" id="{{ game.dog }}" value="{{ game.dog.id }}" required/>
+                <label for="{{ game.dog }}">{{ game.dog }}</label><br />
+            {% endfor %}
+            </div>
+            <br>
+        <input type="submit" value="Submit" />
+        </div>
+        {% else %}
+            <p>No games are available.</p>
+        {% endif %}
+
+    {% else %}
+        <p>Picks ended {{ cutoffTime }}</p>
+    {% endif %}
+
+
+{% endblock %}

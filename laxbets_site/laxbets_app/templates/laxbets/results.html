@@ -1,0 +1,54 @@
+{% extends 'laxbets/base.html' %}
+
+{% block content %}
+    <div class="jumbotron">
+    {% if date %}
+    <h1 class="display-4">Picks for weekend of: {{ date }}</h1>
+    {% endif %}
+    <br>
+
+    {% if display %}
+
+        {% if games %}
+            <div class="table-responsive results-table table-striped" style="white-space:nowrap; font-size:80%">
+            <table class="table table-bordered .table-sm">
+                <tr>
+                    <th scope="col">Email</th>
+                    <th scope="col">Wins</th>
+
+                    {% for game in games %}
+                    <th scope="col">{{ game.favorite }} -{{ game.line }} v. {{ game.dog }}</th>
+                    {% endfor %}
+                </tr>
+
+
+
+                {% for s in submissions %}
+                <tr>
+                    <td>{{ s.email }}</td>
+                    <td>{{ s.winners }}</td>
+                    {% for p in s.picks.all %}
+                        {% if p.correct == 1 %}
+                            <td bgcolor="#b3ffb3">{{ p }}</td>
+                        {% elif p.correct == 2 %}
+                            <td bgcolor="#ffb3b3">{{ p }}</td>
+                        {% else %}
+                            <td>{{ p }}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+
+
+            </table>
+            </div>
+        </div>
+        {% else %}
+            <p>No games are available.</p>
+        {% endif %}
+
+    {% else %}
+        <p>Picks will be available to view {{ cutoffTime }}</p>
+    {% endif %}
+
+{% endblock %}

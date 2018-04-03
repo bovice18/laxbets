@@ -1,0 +1,30 @@
+Laxbets Notes:
+
+
+Start virtual env:
+~/Desktop/Development/laxbets: source laxbets_env/bin/activate
+
+
+Make changes to DB models:
+~/Desktop/Development/laxbets/laxbets_site: python manage.py makemigrations laxbets_app
+if this looks good:
+python manage.py migrate
+
+
+Create admin:
+python manage.py createsuperuser
+
+
+Run Server:
+python manage.py runserver
+
+
+
+ToDo:
+
+- manyToMany field might not be what we want?  That means it will show all possible but only highlight selected ones?
+- How to display picks
+- Create method to update Results after all the weeks games have been updated with winners
+
+
+

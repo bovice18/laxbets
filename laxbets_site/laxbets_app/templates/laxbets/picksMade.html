@@ -1,0 +1,37 @@
+{% extends 'laxbets/base.html' %}
+
+{% block content %}
+    <div class="jumbotron">
+        {% if date and emailDupe %}
+            <h1 class="display-6"> Duplicate email!</h1>
+            <h3 class="display-6">Picks have already been made by {{ email }} for weekend of: {{ date }}</h3>
+        {% else %}
+            {% if date %}
+            <h1 class="display-6">Picks made by {{ email }} for weekend of: {{ date }}</h1>
+            {% endif %}
+            <br>
+
+
+            <div class="table-responsive results-table" style="white-space:nowrap; font-size:80%">
+            <table class="table table-bordered .table-sm">
+                <tr>
+                    <th scope="col">Email</th>
+
+                    {% for game in games %}
+                    <th scope="col">{{ game.favorite }} -{{ game.line }} v. {{ game.dog }}</th>
+                    {% endfor %}
+                </tr>
+
+
+                <tr>
+                    <td>{{ email }}</td>
+                    {% for p in picks.all %}
+                        <td>{{ p }}</td>
+                    {% endfor %}
+                </tr>
+            </table>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
