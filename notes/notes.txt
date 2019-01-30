@@ -19,6 +19,9 @@ Run Server:
 python manage.py runserver
 
 
+For production admin environment:
+python manage.py collectstatic
+
 
 ToDo:
 
@@ -26,5 +29,9 @@ ToDo:
 - How to display picks
 - Create method to update Results after all the weeks games have been updated with winners
 
-
+Elastic Beanstalk Notes:
+- Create .ebextensions/django.config
+- eb init
+- eb create (only once)
+- eb deploy
 

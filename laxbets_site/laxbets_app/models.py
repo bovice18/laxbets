@@ -15,7 +15,7 @@ class Game(models.Model):
     dog = models.ForeignKey(Team, related_name="underdog_team", on_delete=models.CASCADE)
     line = models.FloatField(default=0)
     ou = models.FloatField(default=0)
-    winner = models.ForeignKey(Team, related_name="winner", on_delete=models.CASCADE, default=None) #Always starts as nothing until we come back and edit
+    winner = models.ForeignKey(Team, related_name="winner", on_delete=models.CASCADE, blank=True) #Always starts as nothing until we come back and edit
     def __str__(self):
         return "{fav} - {dog}".format(fav=self.favorite, dog=self.dog)
 

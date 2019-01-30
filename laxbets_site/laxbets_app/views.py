@@ -12,7 +12,10 @@ from .models import Week, Game, Pick, PlayerSubmission, Result, Team
 def makePicks(request):
     latest_week = Week.objects.order_by('-date').first()
     now = datetime.datetime.now(tz=pytz.timezone("America/New_York"))
-    displayPicks = now <= latest_week.cutoffTime
+    if latest_week:
+        displayPicks = now <= latest_week.cutoffTime
+    else:
+        displayPicks = False
     context = {
         'games': latest_week.games.all(),
         'date': latest_week.date,
@@ -90,8 +93,11 @@ def updateWins(submission):
                 wins += 1
                 p.correct = 1
                 p.save()
-            else:
+            elif p.game.winner.name != "PLACEHOLDER":
                 p.correct = 2
+                p.save()
+            else:
+                p.correct = 0
                 p.save()
         except ValueError:
             continue

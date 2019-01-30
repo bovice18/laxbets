@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.views.generic.base import RedirectView
 
 urlpatterns = [
+    url(r'^', include('laxbets_app.urls')),
     url(r'^laxbets/', include('laxbets_app.urls', namespace="laxbets_app")),
     url(r'^admin/', admin.site.urls),
 ]
